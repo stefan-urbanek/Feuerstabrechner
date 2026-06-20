@@ -1,0 +1,371 @@
+:root {
+  --bg: #f4efe6;
+  --bg-strong: #eadfcb;
+  --card: rgba(255, 251, 245, 0.88);
+  --card-strong: #fffaf0;
+  --line: #c7b596;
+  --text: #2c241b;
+  --muted: #6b5c4c;
+  --accent: #b55b2a;
+  --accent-dark: #88401b;
+  --input-bg: #d7f4d1;
+  --calc-bg: #d9e8ff;
+  --header-bg: #f0dcc0;
+  --note-bg: #f7e9d6;
+  --shadow: 0 18px 50px rgba(90, 57, 27, 0.13);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(181, 91, 42, 0.18), transparent 28%),
+    radial-gradient(circle at right 10% top 15%, rgba(232, 207, 162, 0.5), transparent 22%),
+    linear-gradient(180deg, #fbf6ee 0%, var(--bg) 100%);
+}
+
+.app-shell {
+  width: min(1500px, calc(100% - 32px));
+  margin: 24px auto 48px;
+}
+
+.hero,
+.sheet-card,
+.tabs {
+  backdrop-filter: blur(12px);
+}
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid rgba(130, 97, 56, 0.2);
+  border-radius: calc(var(--radius) + 8px);
+  background: linear-gradient(135deg, rgba(255, 250, 240, 0.96), rgba(244, 234, 215, 0.9));
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+  color: var(--accent-dark);
+}
+
+.hero h1,
+.panel-header h2 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.hero-copy,
+.panel-header p,
+.source-note {
+  color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  max-width: 560px;
+}
+
+button,
+.import-label {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+button,
+.import-label {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  box-shadow: 0 12px 24px rgba(136, 64, 27, 0.22);
+}
+
+button:hover,
+.import-label:hover,
+.tab-button:hover {
+  transform: translateY(-1px);
+}
+
+button.secondary,
+.import-label.secondary {
+  color: var(--text);
+  background: rgba(255, 250, 240, 0.95);
+  border-color: rgba(130, 97, 56, 0.22);
+  box-shadow: none;
+}
+
+.import-label input {
+  display: none;
+}
+
+.storage-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 22px 0;
+  padding: 10px;
+  border: 1px solid rgba(130, 97, 56, 0.14);
+  border-radius: calc(var(--radius) + 4px);
+  background: rgba(255, 251, 245, 0.7);
+}
+
+.tab-button {
+  flex: 1 1 180px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid rgba(130, 97, 56, 0.14);
+  box-shadow: none;
+}
+
+.tab-button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #c76e36 0%, #8a421d 100%);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+  animation: fade-in 220ms ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.selector-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+}
+
+.selector-strip label,
+.hero-actions label {
+  font-size: 0.92rem;
+}
+
+select,
+input[type="number"] {
+  width: 100%;
+  border: 1px solid rgba(130, 97, 56, 0.25);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--text);
+  background: #fffdf8;
+}
+
+.sheet-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid rgba(130, 97, 56, 0.16);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.sheet-card.single-column {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.table-wrap {
+  overflow: auto;
+}
+
+.sheet-table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+  background: var(--card-strong);
+}
+
+.sheet-table th,
+.sheet-table td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  vertical-align: middle;
+}
+
+.sheet-table th {
+  font-size: 0.92rem;
+}
+
+.table-title th {
+  background: linear-gradient(135deg, #d2ab79, #c68b5a);
+  color: #fff;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.header-row th,
+.market-header th,
+.weapon-group {
+  background: var(--header-bg);
+}
+
+.tier-cell {
+  min-width: 82px;
+  font-weight: 700;
+  background: rgba(227, 210, 180, 0.75);
+}
+
+.formula-cell {
+  background: var(--calc-bg);
+  text-align: right;
+}
+
+.formula-cell.text-cell {
+  text-align: left;
+}
+
+.input-cell {
+  background: var(--input-bg);
+}
+
+.input-cell input {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align: right;
+}
+
+.market-input input {
+  text-align: right;
+}
+
+.market-subheader {
+  text-align: center;
+  background: rgba(232, 218, 192, 0.7);
+}
+
+.notes-card {
+  align-self: start;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--note-bg);
+  border: 1px solid rgba(130, 97, 56, 0.16);
+}
+
+.notes-card h3 {
+  margin-top: 0;
+}
+
+.notes-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.notes-list li + li {
+  margin-top: 8px;
+}
+
+.summary-row th,
+.summary-row td {
+  font-weight: 700;
+  background: rgba(216, 188, 153, 0.4);
+}
+
+.weapon-group {
+  text-align: center;
+  min-width: 150px;
+}
+
+.sub-col {
+  background: rgba(239, 230, 211, 0.75);
+  text-align: center;
+}
+
+.hint-row td {
+  background: rgba(250, 241, 225, 0.8);
+  color: var(--muted);
+}
+
+.source-note {
+  margin: 14px 0 0;
+  font-size: 0.92rem;
+}
+
+code {
+  padding: 0.12rem 0.36rem;
+  border-radius: 999px;
+  background: rgba(130, 97, 56, 0.1);
+}
+
+@media (max-width: 1150px) {
+  .sheet-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    width: min(100% - 18px, 1500px);
+    margin: 12px auto 28px;
+  }
+
+  .hero,
+  .sheet-card {
+    padding: 16px;
+  }
+
+  .tabs {
+    gap: 8px;
+  }
+
+  .tab-button {
+    flex-basis: calc(50% - 8px);
+  }
+}

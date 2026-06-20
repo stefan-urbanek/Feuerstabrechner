@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rohstoffrechner lokal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Albion Werkzeug lokal</p>
+        <h1>Rohstoffrechner & Herstellung</h1>
+        <p class="hero-copy">
+          Browserbasiertes Ersatz-Tool für die Excel-Datei
+          <code>Rohstoffrechner_Herstellung_erweitert.xlsx</code>.
+        </p>
+      </div>
+
+      <div class="hero-actions">
+        <button id="recalcBtn" type="button">Alles neu berechnen</button>
+        <button id="resetBtn" type="button" class="secondary">Eingaben zurücksetzen</button>
+        <button id="exportBtn" type="button" class="secondary">JSON exportieren</button>
+        <label class="import-label secondary">
+          JSON importieren
+          <input id="importInput" type="file" accept="application/json">
+        </label>
+        <label class="storage-toggle">
+          <input id="storageEnabled" type="checkbox">
+          localStorage aktiv
+        </label>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Arbeitsbereiche">
+      <button class="tab-button active" data-tab="rohstoff">Rohstoffrechner</button>
+      <button class="tab-button" data-tab="holz">Marktpreise Holz</button>
+      <button class="tab-button" data-tab="planken">Marktpreise Planken</button>
+      <button class="tab-button" data-tab="herstellung">Herstellung</button>
+    </nav>
+
+    <main>
+      <section id="tab-rohstoff" class="tab-panel active">
+        <div class="panel-header">
+          <div>
+            <h2>Rohstoffrechner</h2>
+            <p>Produktionswunsch bedeutet gewünschte Endmenge an Planken. Fehlmengen werden automatisch als Kaufbedarf ausgewiesen.</p>
+          </div>
+          <div class="selector-strip">
+            <label>
+              Stadt
+              <select id="citySelect"></select>
+            </label>
+            <label>
+              Preisart
+              <select id="priceTypeSelect"></select>
+            </label>
+          </div>
+        </div>
+
+        <div class="sheet-card">
+          <div class="table-wrap">
+            <table id="rohstoffTable" class="sheet-table"></table>
+          </div>
+
+          <aside class="notes-card">
+            <h3>Hinweise</h3>
+            <ul id="rohstoffNotes" class="notes-list"></ul>
+          </aside>
+        </div>
+      </section>
+
+      <section id="tab-holz" class="tab-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Marktpreise Holz</h2>
+            <p>Editierbare Startwerte aus der Excel-Vorlage. Diese Preise werden für den Holzkauf im Rohstoffrechner verwendet.</p>
+          </div>
+        </div>
+        <div class="sheet-card single-column">
+          <div class="table-wrap">
+            <table id="holzTable" class="sheet-table market-table"></table>
+          </div>
+          <p class="source-note" id="holzSource"></p>
+        </div>
+      </section>
+
+      <section id="tab-planken" class="tab-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Marktpreise Planken</h2>
+            <p>Diese Preise werden im Blatt Herstellung für Kapital-Einsatz und Kapital-Rückgewinn genutzt.</p>
+          </div>
+        </div>
+        <div class="sheet-card single-column">
+          <div class="table-wrap">
+            <table id="plankenTable" class="sheet-table market-table"></table>
+          </div>
+          <p class="source-note" id="plankenSource"></p>
+        </div>
+      </section>
+
+      <section id="tab-herstellung" class="tab-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Herstellung</h2>
+            <p>Ziel und Endbestand werden je Stab und Tier eingegeben. Die Excel-Logik summiert daraus Einsatz, Rückgewinn und Kapitalwerte.</p>
+          </div>
+        </div>
+
+        <div class="sheet-card">
+          <div class="table-wrap">
+            <table id="herstellungTable" class="sheet-table"></table>
+          </div>
+
+          <aside class="notes-card">
+            <h3>Hinweise</h3>
+            <ul id="herstellungNotes" class="notes-list"></ul>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
